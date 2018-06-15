@@ -69,7 +69,7 @@ I recommend using the provided blueprints for benchmark purposes.  However, you 
 
 ```
 cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
-cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
+cb blueprint create from-file --file hive-tpcds-blueprint-compute.json --name hive-tpcds
 ```
 
 ### Create Cluster
