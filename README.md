@@ -219,4 +219,4 @@ sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/tpcds-generate
 
 ### Cluster Termination
 
-Once you have completed a round of tests on a given configuraiton, terminate the clsuter via Cloudbreak.  Repeat the process for different instance types to compare relative performance.
+Once you have completed a round of tests on a given configuration, terminate the clsuter via Cloudbreak.  Repeat the process for different instance types to compare relative performance.
