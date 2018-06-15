@@ -46,6 +46,8 @@ The cluster definitions included in this repo were generated with Cloudbreak usi
 
 You should modify the cluster defintion json files to meet your needs.  Common sections that will need to be changed include:
 
+- **tags**
+  - **userDefinedTags** - You should update the tags appropriate for your usage
 - **placement**
   - **availabilityZone** - You may want to use a differnet availability zone
   - **region** - You may want to use a different region
