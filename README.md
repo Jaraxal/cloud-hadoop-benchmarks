@@ -8,6 +8,8 @@ Cloudbreak simplifies the deployment of Hortonworks platforms in cloud environme
 
 Cloudbreak is also a great tool for automating the deployment of multiple clusters across different cloud platform providers.  This ensures our ability to deploy known HDP configurations while minimizing the vartions to just instance and/or storage types.
 
+You can read more about Cloudbreak [here](https://hortonworks.com/open-source/cloudbreak/) and [here](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.2/content/index.html).
+
 There are a number of common benchmarking tools avaialble for Hadoop.  I will use TestDFISIO, TeraGen, TeraSort and TPC-DS.
 
 ## Prerequisites
@@ -44,22 +46,22 @@ The cluster definitions included in this repo were generated with Cloudbreak usi
 
 You should modify the cluster defintion json files to meet your needs.  Common sections that will need to be changed include:
 
-- placement
-  - availabilityZone - You may want to use a differnet availability zone
-  - region - You may want to use a different region
-- general
-  - credentialName - This should correspond to the credential name for your cloud provider
-- cluster
-  - password - You should change the Ambari admin password
-- instanceGroups
-  - instanceType - You may want to use different instance types
-  - volumetype - You may want to use different storage types
-  - volumeCount - You may want to use a different number of volumes
-  - volumeSize - You may want to use a different size of volume
-  - securityGroupId - This should correspond to an existing security group you have created for your cloud provider
-- network
-  - subnetId - This should correspond to an existing subnet you have created for your cloud provider
-  - vpcId - This should correspond to an existing subnet you have created for your cloud provider
+- **placement**
+  - **availabilityZone** - You may want to use a differnet availability zone
+  - **region** - You may want to use a different region
+- **general**
+  - **credentialName**- This should correspond to the credential name for your cloud provider
+- **cluster**
+  - **password** - You should change the Ambari admin password
+- **instanceGroups**
+  - **instanceType** - You may want to use different instance types
+  - **volumetype** - You may want to use different storage types
+  - **volumeCount** - You may want to use a different number of volumes
+  - **volumeSize** - You may want to use a different size of volume
+  - **securityGroupId** - This should correspond to an existing security group you have created for your cloud provider
+- **network**
+  - **subnetId** - This should correspond to an existing subnet you have created for your cloud provider
+  - **vpcId** - This should correspond to an existing subnet you have created for your cloud provider
 
 ### Blueprints
 
@@ -141,3 +143,17 @@ After recording the output from these test, don't forget to remove the test file
 ```
 hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
 ```
+
+### TeraGen
+
+#### Test 500GB
+
+#### Test 100GB
+
+
+### TeraSort
+
+#### Test 50GB
+
+#### Test 100GB
+
