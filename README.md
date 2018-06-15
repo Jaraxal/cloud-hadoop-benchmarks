@@ -83,7 +83,7 @@ For example:
 
 Once the cluster is running, you should log into the client node.  The client node will be on the cluster details page in Cloudbreak.  Here is an exmaple:
 
-![Image](https://github.com/Jaraxal/hive-testbench/blob/master/cb-cluster-details.png)
+![Image](https://github.com/Jaraxal/cloud-hadoop-benchmarks/blob/master/cb-cluster-details.png)
 
 You should use the "cloudbreak" username and the key you specified in the cluster defintion.  For example:
 
@@ -144,16 +144,39 @@ After recording the output from these test, don't forget to remove the test file
 hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
 ```
 
-### TeraGen
+### TeraGen & TeraGen
 
-#### Test 500GB
+The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and TeraValidate.  I only peformed TeraGen and TeraSort testing due to time constraints.
 
-#### Test 100GB
+#### Test TeraGen 500GB
 
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 500000000 /user/cloudbreak/terasort-input
+```
 
-### TeraSort
+#### Test TeraGen 100GB
 
-#### Test 50GB
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 1000000000 /user/cloudbreak/terasort-input
+```
 
-#### Test 100GB
+#### Test TeraSort 50GB
 
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+```
+
+#### Test TeraSort 100GB
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+```
+
+#### Cleanup
+
+After recording the output from these test, don't forget to remove the test files:
+
+```
+sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
+sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
+```
