@@ -38,7 +38,7 @@ You need credentials for your cloud provider platform of choice.  You need to de
 
 ## Running the benchmarks
 
-You should log into the client_1 node created by Cloudbreak using the ssh key you specified in the cluster definition.  All tests should be performed on the client node.
+You should log into the client node created by Cloudbreak using the ssh key you specified in the cluster definition.  All tests should be performed on the client node.
 
 ### Cluster Definitions
 
@@ -180,3 +180,9 @@ After recording the output from these test, don't forget to remove the test file
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
 ```
+
+### TPC-DS
+
+The TPC Benchmark DS (TPC-DS) is a decision support benchmark that models several generally applicable aspects of a decision support system, including queries and data maintenance.
+
+I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`, `q29`, `q59`, `q74`, `q75`, `q78`, `q93`, `q97`.  These are generally longer running queries.  The tpc-ds benchmark suite provided here was forked from [Hortonworks hive-testbench](https://github.com/hortonworks/hive-testbench).
