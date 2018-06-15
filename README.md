@@ -67,11 +67,10 @@ You should modify the cluster defintion json files to meet your needs.  Common s
 
 I recommend using the provided blueprints for benchmark purposes.  However, you may want to perform A-B testing with small changes to the cluster layout or component configurations.  I have provided 2 hive-focused blueprints.  To register the blueprints, you need to be on your Cloudbreak deployer node and run the following:
 
-````
+```
 cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
 cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
 ```
-
 
 ### Create Cluster
 
