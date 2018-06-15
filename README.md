@@ -65,9 +65,13 @@ You should modify the cluster defintion json files to meet your needs.  Common s
 
 ### Blueprints
 
-I recommend using the provided blueprints for benchmark purposes.  However, you may want to perform A-B testing with small changes the cluster layout.  I have provided 2 hive-focused blueprints.  To register the blueprints, you need to be on your Cloudbreak deployer node and run the following:
+I recommend using the provided blueprints for benchmark purposes.  However, you may want to perform A-B testing with small changes to the cluster layout or component configurations.  I have provided 2 hive-focused blueprints.  To register the blueprints, you need to be on your Cloudbreak deployer node and run the following:
 
+````
 cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
+cb blueprint create from-file --file hive-tpcds-blueprint.json --name hive-tpcds
+```
+
 
 ### Create Cluster
 
@@ -102,7 +106,7 @@ sudo -u hdfs hadoop fs -chown cloudbreak /benchmarks
 
 TestDFSIO has a `write` and a `read` component.  You should test both of these.
 
-***NOTE: Paths specified are specific to HDP 2.6.4.5.  If you use a different version of HDP, you should update the paths accordingly.
+**NOTE: Paths specified are specific to HDP 2.6.4.5.  If you use a different version of HDP, you should update the paths accordingly.**
 
 #### Test 50GB
 
@@ -174,7 +178,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 
 #### Cleanup
 
-After recording the output from these test, don't forget to remove the test files:
+After recording the output from these tests, don't forget to remove the test files:
 
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
@@ -183,6 +187,35 @@ sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
 
 ### TPC-DS
 
-The TPC Benchmark DS (TPC-DS) is a decision support benchmark that models several generally applicable aspects of a decision support system, including queries and data maintenance.
+The TPC Benchmark DS (TPC-DS) is a decision support benchmark that models several generally applicable aspects of a decision support system, including queries and data maintenance.  You can read more about it here [TPC-DS](http://www.tpc.org/tpcds/)
 
 I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`, `q29`, `q59`, `q74`, `q75`, `q78`, `q93`, `q97`.  These are generally longer running queries.  The tpc-ds benchmark suite provided here was forked from [Hortonworks hive-testbench](https://github.com/hortonworks/hive-testbench).
+
+#### Test 50GB
+
+```
+./tpcds-build.sh
+./tpcds-setup.sh 50
+./runSuite.pl tpcds 50
+```
+
+#### Test 100GB
+
+```
+./tpcds-build.sh
+./tpcds-setup.sh 100
+./runSuite.pl tpcds 100
+```
+
+#### Cleanup
+
+After recording the output from these tests, don't forget to remove the test files:
+
+```
+sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/all_*
+sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/tpcds-generate
+```
+
+### Cluster Termination
+
+Once you have completed a round of tests on a given configuraiton, terminate the clsuter via Cloudbreak.  Repeat the process for different instance types to compare relative performance.
