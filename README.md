@@ -83,7 +83,7 @@ For example:
 
 Once the cluster is running, you should log into the client node.  The client node will be on the cluster details page in Cloudbreak.  Here is an exmaple:
 
-![Image](https://github.com/Jaraxal/hive-testbench/blob/master/cluster-details.png)
+![Image](https://github.com/Jaraxal/hive-testbench/blob/master/cb-cluster-details.png)
 
 You should use the "cloudbreak" username and the key you specified in the cluster defintion.  For example:
 
