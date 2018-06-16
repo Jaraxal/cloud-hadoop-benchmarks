@@ -192,6 +192,8 @@ The TPC Benchmark DS (TPC-DS) is a decision support benchmark that models severa
 
 I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`, `q29`, `q59`, `q74`, `q75`, `q78`, `q93`, `q97`.  These are generally longer running queries.  The tpc-ds benchmark suite provided here was forked from [Hortonworks hive-testbench](https://github.com/hortonworks/hive-testbench).
 
+The `runSuit.pl` script runs each query 5 times.  You can modify the script to change the number of runs.
+
 #### Test 50GB
 
 ```
