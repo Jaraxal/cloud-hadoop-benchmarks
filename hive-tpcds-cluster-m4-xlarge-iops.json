@@ -112,7 +112,7 @@
         "instanceType": "m4.xlarge",
         "volumeType": "st1",
         "volumeCount": 6,
-        "volumeSize": 200
+        "volumeSize": 500
       },
       "nodeCount": 10,
       "group": "worker",
