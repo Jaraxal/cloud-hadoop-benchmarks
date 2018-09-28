@@ -1,6 +1,6 @@
 {
   "general": {
-    "credentialName": "hwx-azure-myoung",
+    "credentialName": "azure-personal-myoung",
     "name": "myoung-dws-tpcds-1"
   },
   "tags": {
@@ -8,19 +8,19 @@
       "Owner": "myoung@hortonworks.com",
       "Business Unit": "Federal Sales",
       "Product": "HDP26",
-      "End Date": "06/30/2018",
+      "End Date": "10/31/2018",
       "Hours of Operations": "24x7 or notify",
       "Business Justification": "DWS and cloud-sme benchmarking"
     }
   },
   "placement": {
-    "region": "East US 2"
+    "region": "East US"
   },
   "flexId": null,
   "cluster": {
     "ambari": {
       "userName": "admin",
-      "password": "",
+      "password": "admin",
       "blueprintName": "hive-tpcds",
       "ambariStackDetails": {
         "stack": "HDP",
