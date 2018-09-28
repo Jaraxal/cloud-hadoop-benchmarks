@@ -1,0 +1,242 @@
+{
+  "inputs": {},
+  "general": {
+    "credentialName": "azure-personal-myoung",
+    "name": "testme"
+  },
+  "placement": {
+    "region": "East US"
+  },
+  "tags": {
+    "userDefinedTags": {}
+  },
+  "cluster": {
+    "ambari": {
+      "blueprintName": "hive-tpcds",
+      "platformVersion": "HDP 2.6",
+      "ambariStackDetails": {
+        "version": "2.6",
+        "verify": false,
+        "enableGplRepo": false,
+        "stack": "HDP",
+        "stackOs": "centos7",
+        "mpacks": []
+      },
+      "gateway": {
+        "enableGateway": true,
+        "topologies": [
+          {
+            "topologyName": "dp-proxy",
+            "exposedServices": [
+              "AMBARI"
+            ]
+          }
+        ],
+        "ssoType": "NONE"
+      },
+      "userName": "admin",
+      "password": "BadPass#1",
+      "validateBlueprint": false,
+      "ambariSecurityMasterKey": "",
+      "enableSecurity": false
+    },
+    "sharedService": {},
+    "cloudStorage": {},
+    "rdsConfigNames": []
+  },
+  "imageSettings": {
+    "imageCatalog": "cloudbreak-default",
+    "imageId": "a3ef2f44-4dc9-480a-5cd9-9413d957934a"
+  },
+  "imageType": "prewarmed",
+  "instanceGroups": [
+    {
+      "parameters": {
+        "availabilitySet": {
+          "name": "testme-master_1-as",
+          "faultDomainCount": 2,
+          "updateDomainCount": 20
+        }
+      },
+      "template": {
+        "parameters": {
+          "encrypted": false,
+          "managedDisk": true
+        },
+        "instanceType": "Standard_DS5_v2",
+        "volumeType": "Standard_LRS",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50
+      },
+      "nodeCount": 1,
+      "group": "master_1",
+      "type": "GATEWAY",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "9443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "8443"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {
+        "availabilitySet": {
+          "name": "testme-master_2-as",
+          "faultDomainCount": 2,
+          "updateDomainCount": 20
+        }
+      },
+      "template": {
+        "parameters": {
+          "encrypted": false,
+          "managedDisk": true
+        },
+        "instanceType": "Standard_DS5_v2",
+        "volumeType": "Standard_LRS",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50
+      },
+      "nodeCount": 1,
+      "group": "master_2",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {
+        "availabilitySet": {
+          "name": "testme-master_3-as",
+          "faultDomainCount": 2,
+          "updateDomainCount": 20
+        }
+      },
+      "template": {
+        "parameters": {
+          "encrypted": false,
+          "managedDisk": true
+        },
+        "instanceType": "Standard_DS5_v2",
+        "volumeType": "Standard_LRS",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50
+      },
+      "nodeCount": 1,
+      "group": "master_3",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {
+        "availabilitySet": {
+          "name": "testme-worker-as",
+          "faultDomainCount": 2,
+          "updateDomainCount": 20
+        }
+      },
+      "template": {
+        "parameters": {
+          "encrypted": false,
+          "managedDisk": true
+        },
+        "instanceType": "Standard_DS12_v2",
+        "volumeType": "Standard_LRS",
+        "volumeCount": 6,
+        "volumeSize": 200,
+        "rootVolumeSize": 50
+      },
+      "nodeCount": 10,
+      "group": "worker",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {
+        "availabilitySet": {
+          "name": "testme-client-as",
+          "faultDomainCount": 2,
+          "updateDomainCount": 20
+        }
+      },
+      "template": {
+        "parameters": {
+          "encrypted": false,
+          "managedDisk": true
+        },
+        "instanceType": "Standard_DS5_v2",
+        "volumeType": "Standard_LRS",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50
+      },
+      "nodeCount": 1,
+      "group": "client",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    }
+  ],
+  "network": {
+    "parameters": {
+      "noPublicIp": false,
+      "noFirewallRules": false
+    },
+    "subnetCIDR": "10.0.0.0/16"
+  },
+  "stackAuthentication": {
+    "publicKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNNLu+gCm8f1XUAH2P3zWFFC0p+rB0WwOOB69vt3xhudexRRR/eutPFW7M4b3kxPNYE8r5xKOoI3iVVVTi32asMPgWtOLHU0zzVWVVYYMqN78No2fduLxi+CfB4Hbt7vhF2Jvd2VAMwl7M2VKOOCdatqI3p/qvMTpKqbM2N99u4LCwuhFYTDrxoCE8DkiTT1tuzXyCkSWPXSHg1IGjzj3iDwCLNJVeUZIVGAhPEOqyLrcltfOQZMUXKum+xERFuTxOR4JfleyI3ZIL+AXsWj9jverzy3SumXkRpEbAx1ra98AhlwXWwdwi+q6RnIsiA6zMb4fF9drBuGmc9JwAmBtC3Z95eXYnpd/buv/nwKGKhxDNNGVgr4FLZv6qO5phHY55yTmgjNtcRHXU6uhEpg0drK/jKq+eg+u329nBQclWhq1682c9FSbqURDVFdUOLbl2QzfYAfRMoD6zeHxZQwaMAAu9jE3TzK0CEq+HU8J/EMWTRn8XnC2CkpU5m2qMh8NzfPuwCHHsetm2WcvxPxN7zVwfyGHJvilrKVlKIqJsSy4bWeln4TWMsJtVsP0aQvY8pXprWetVrZgP2XqJNM+gwFJCS0VGFUz7qhhuIR4xerKsxoBQ4d74Eh8UJBkguwGY+C+IvTrKwQ6eAWt0ad2bWc+xIWLkgJ9YTgtZHW6wmQ== michael.l.young@gmail.com"
+  },
+  "parameters": {
+    "encryptStorage": true
+  }
+}
