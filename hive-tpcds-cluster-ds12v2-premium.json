@@ -20,7 +20,7 @@
     "cluster": {
       "ambari": {
         "userName": "admin",
-        "password": "admin",
+        "password": "BadPass#1",
         "blueprintName": "hive-tpcds",
         "ambariStackDetails": {
           "stack": "HDP",
