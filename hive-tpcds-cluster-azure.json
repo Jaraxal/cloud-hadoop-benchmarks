@@ -64,7 +64,7 @@
           "managedDisk": true
         },
         "instanceType": "Standard_DS5_v2",
-        "volumeType": "Standard_LRS",
+        "volumeType": "Premium_LRS",
         "volumeCount": 1,
         "volumeSize": 100,
         "rootVolumeSize": 50
@@ -107,7 +107,7 @@
           "managedDisk": true
         },
         "instanceType": "Standard_DS5_v2",
-        "volumeType": "Standard_LRS",
+        "volumeType": "Premium_LRS",
         "volumeCount": 1,
         "volumeSize": 100,
         "rootVolumeSize": 50
@@ -140,7 +140,7 @@
           "managedDisk": true
         },
         "instanceType": "Standard_DS5_v2",
-        "volumeType": "Standard_LRS",
+        "volumeType": "Premium_LRS",
         "volumeCount": 1,
         "volumeSize": 100,
         "rootVolumeSize": 50
@@ -206,7 +206,7 @@
           "managedDisk": true
         },
         "instanceType": "Standard_DS5_v2",
-        "volumeType": "Standard_LRS",
+        "volumeType": "Premium_LRS",
         "volumeCount": 1,
         "volumeSize": 100,
         "rootVolumeSize": 50
