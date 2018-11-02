@@ -137,7 +137,7 @@ To test `write` for 100GB:
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 100 -fileSize 1000
 ```
 
-To test `read` for 50GB:
+To test `read` for 100GB:
 
 ```
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 100 -fileSize 1000
@@ -153,25 +153,33 @@ hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient
 
 The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and TeraValidate.  I only peformed TeraGen and TeraSort testing due to time constraints.
 
-#### Test TeraGen 500GB
+#### Test TeraGen 50GB
+
+To test `TeraGen` for 50GB:
 
 ```
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 500000000 /user/cloudbreak/terasort-input
 ```
 
-#### Test TeraGen 100GB
-
-```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 1000000000 /user/cloudbreak/terasort-input
-```
-
 #### Test TeraSort 50GB
+
+To test `TeraSort` for 50GB:
 
 ```
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
 ```
 
+#### Test TeraGen 100GB
+
+To test `TeraGen` for 100GB:
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 1000000000 /user/cloudbreak/terasort-input
+```
+
 #### Test TeraSort 100GB
+
+To test `TeraSort` for 100B:
 
 ```
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
