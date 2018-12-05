@@ -43,7 +43,7 @@
         "ssoType": "NONE"
       },
       "userName": "admin",
-      "password": "",
+      "password": "BadPass#!",
       "validateBlueprint": false,
       "ambariSecurityMasterKey": "",
       "enableSecurity": false
