@@ -16,7 +16,7 @@
   "flexId": null,
   "general": {
     "name": "myoung-hive-tpcds-3",
-    "credentialName": " aws-hortonworks-myoung"
+    "credentialName": "aws-hortonworks-myoung"
   },
   "cluster": {
     "ambari": {
