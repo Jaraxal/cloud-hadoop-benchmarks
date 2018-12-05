@@ -4,7 +4,7 @@
       "Business Unit": "Federal Sales",
       "Product": "HDP26",
       "Owner": "Michael Young",
-      "End Date": "06/30/2018",
+      "End Date": "12/31/2018",
       "Hours of Operations": "24 x 7 or notify before stopping",
       "Business Justification": "Running cloud-sme tpc-ds benchmarks that can take longer than 24 hours"
     }
@@ -16,7 +16,7 @@
   "flexId": null,
   "general": {
     "name": "myoung-hive-tpcds-3",
-    "credentialName": "hwx-aws-myoung"
+    "credentialName": " aws-hortonworks-myoung"
   },
   "cluster": {
     "ambari": {

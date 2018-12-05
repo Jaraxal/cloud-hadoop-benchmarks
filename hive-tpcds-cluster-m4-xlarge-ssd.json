@@ -4,7 +4,7 @@
       "Business Unit": "Federal Sales",
       "Product": "HDP26",
       "Owner": "Michael Young",
-      "End Date": "06/30/2018",
+      "End Date": "12/31/2018",
       "Hours of Operations": "24x7 or notify before shutdown",
       "Business Justification": "Running benchmarks for cloud-sme/dws and the testing can run longer than 24 hours."
     }
