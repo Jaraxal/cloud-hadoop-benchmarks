@@ -36,6 +36,7 @@ You should install the Cloudbreak CLI onto your Cloudbreak deployer node.  This 
 
 You need credentials for your cloud provider platform of choice.  You need to define these credentials within Cloudbreak.
 
+
 ## Running the benchmarks
 
 You should log into the client node created by Cloudbreak using the ssh key you specified in the cluster definition.  All tests should be performed on the client node.
@@ -94,6 +95,16 @@ You should use the "cloudbreak" username and the key you specified in the cluste
 
 `ssh -i ~/Downloads/cloudbreak-crashcourse.pem  cloudbreak@13.57.199.34`
 
+You should run all of the benchmarks on the client node to minimize performance impact potential to other nodes in the cluster.  You should clone this repo onto the client node which will provide you the tpcds queries and benchmarks.
+
+You may have to install `git`.
+
+`yum install -y git`
+
+`git clone https://github.com/Jaraxal/cloud-hadoop-benchmarks.git`
+
+`cd cloud-hadoop-benchmarks`
+
 Before running the benchmarks, you should create the required HDFS directories.
 
 ```
@@ -114,19 +125,19 @@ TestDFSIO has a `write` and a `read` component.  You should test both of these.
 To test `write` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 50 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 50 -fileSize 1000
 ```
 
 To test `read` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 50 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 50 -fileSize 1000
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
-hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
 ```
 
 #### Test 100GB
@@ -134,19 +145,19 @@ hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient
 To test `write` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 100 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 100 -fileSize 1000
 ```
 
 To test `read` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 100 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 100 -fileSize 1000
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
-hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
 ```
 
 #### Test 500GB
@@ -154,19 +165,19 @@ hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient
 To test `write` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 500 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 500 -fileSize 1000
 ```
 
 To test `read` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 500 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 500 -fileSize 1000
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
-hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
 ```
 
 ### TeraGen & TeraGen
@@ -178,7 +189,7 @@ The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and 
 To test `TeraGen` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 500000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 500000000 /user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 50GB
@@ -186,7 +197,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 To test `TeraSort` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
 ```
 
 #### Test TeraGen 100GB
@@ -194,7 +205,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 To test `TeraGen` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 1000000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 1000000000 /user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 100GB
@@ -202,7 +213,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 To test `TeraSort` for 100B:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
 ```
 
 #### Test TeraGen 500GB
@@ -210,7 +221,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 To test `TeraGen` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 5000000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 5000000000 /user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 500GB
@@ -218,7 +229,7 @@ time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.
 To test `TeraSort` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
 ```
 
 #### Cleanup
