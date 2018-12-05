@@ -149,6 +149,26 @@ After recording the output from these test, don't forget to remove the test file
 hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
 ```
 
+#### Test 500GB
+
+To test `write` for 500GB:
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 500 -fileSize 1000
+```
+
+To test `read` for 500GB:
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 500 -fileSize 1000
+```
+
+After recording the output from these test, don't forget to remove the test files:
+
+```
+hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.2.6.4.5-2-tests.jar TestDFSIO -clean
+```
+
 ### TeraGen & TeraGen
 
 The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and TeraValidate.  I only peformed TeraGen and TeraSort testing due to time constraints.
@@ -185,6 +205,22 @@ To test `TeraSort` for 100B:
 time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
 ```
 
+#### Test TeraGen 500GB
+
+To test `TeraGen` for 500GB:
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar teragen 5000000000 /user/cloudbreak/terasort-input
+```
+
+#### Test TeraSort 500GB
+
+To test `TeraSort` for 500GB:
+
+```
+time hadoop jar /usr/hdp/2.6.4.5-2/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.4.5-2.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+```
+
 #### Cleanup
 
 After recording the output from these tests, don't forget to remove the test files:
@@ -216,6 +252,14 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 ./tpcds-build.sh
 ./tpcds-setup.sh 100
 ./runSuite.pl tpcds 100
+```
+
+#### Test 500GB
+
+```
+./tpcds-build.sh
+./tpcds-setup.sh 500
+./runSuite.pl tpcds 500
 ```
 
 #### Cleanup
