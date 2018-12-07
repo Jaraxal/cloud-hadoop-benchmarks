@@ -195,6 +195,7 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 -Dmapred.map.output.compress=true \
 500000000 \
 /user/cloudbreak/terasort-input
+
 ```
 
 #### Test TeraSort 50GB
@@ -208,6 +209,7 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 -Dmapred.map.output.compress=true \
 /user/cloudbreak/terasort-input \
 /user/cloudbreak/terasort-output
+
 ```
 
 #### Test TeraGen 100GB
@@ -221,6 +223,7 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 -Dmapred.map.output.compress=true \
 1000000000 \
 /user/cloudbreak/terasort-input
+
 ```
 
 #### Test TeraSort 100GB
@@ -234,6 +237,7 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 -Dmapred.map.output.compress=true \
 /user/cloudbreak/terasort-input \
 /user/cloudbreak/terasort-output
+
 ```
 
 #### Test TeraGen 500GB
@@ -259,6 +263,7 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 -Dmapred.reduce.tasks=159 \
 /user/cloudbreak/terasort-input \
 /user/cloudbreak/terasort-output
+
 ```
 
 #### Cleanup
@@ -268,6 +273,7 @@ After recording the output from these tests, don't forget to remove the test fil
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
+
 ```
 
 ### TPC-DS
@@ -312,6 +318,7 @@ After recording the output from these tests, don't forget to remove the test fil
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/all_*
 sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/tpcds-generate
+
 ```
 
 ### Cluster Termination
