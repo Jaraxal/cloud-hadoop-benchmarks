@@ -1,0 +1,246 @@
+{
+  "inputs": {},
+  "general": {
+    "credentialName": "aws-hortonworks-myoung",
+    "name": "myoung-hive-tpcds-01"
+  },
+  "placement": {
+    "region": "us-east-1",
+    "availabilityZone": "us-east-1b"
+  },
+  "tags": {
+    "userDefinedTags": {
+      "Business Unit": "Federal Sales",
+      "Owner": "Michael Young",
+      "Product": "HDP26",
+      "End Date": "12/31/2018",
+      "Hours of Operations": "24x7",
+      "Business Justification": "Cloud SME Benchmarking"
+    }
+  },
+  "cluster": {
+    "ambari": {
+      "blueprintName": "hive-tpcds",
+      "platformVersion": "HDP 2.6",
+      "ambariStackDetails": {
+        "version": "2.6",
+        "verify": false,
+        "enableGplRepo": false,
+        "stack": "HDP",
+        "stackOs": "amazonlinux",
+        "mpacks": []
+      },
+      "gateway": {
+        "enableGateway": true,
+        "topologies": [
+          {
+            "topologyName": "dp-proxy",
+            "exposedServices": [
+              "AMBARI"
+            ]
+          }
+        ],
+        "ssoType": "NONE"
+      },
+      "userName": "admin",
+      "password": "BadPass#1",
+      "validateBlueprint": false,
+      "ambariSecurityMasterKey": "",
+      "enableSecurity": false
+    },
+    "cloudStorage": {
+        "locations": [
+          {
+            "value": "s3a://myoung-hwx/tpcds01/apps/ranger/audit/testme",
+            "propertyFile": "ranger-hive-audit",
+            "propertyName": "xasecure.audit.destination.hdfs.dir"
+          },
+          {
+            "value": "s3a://myoung-hwx/tpcds01/apps/hive/warehouse",
+            "propertyFile": "hive-site",
+            "propertyName": "hive.metastore.warehouse.dir"
+          }
+        ],
+        "s3": {
+          "instanceProfile": "arn:aws:iam::081339556850:instance-profile/myoung-hwx-s3"
+        }
+      },
+    "rdsConfigNames": []
+  },
+  "imageSettings": {
+    "imageCatalog": "cloudbreak-default",
+    "imageId": "5b483ede-bcfd-47b4-7783-fc3b058fa08f"
+  },
+  "imageType": "prewarmed",
+  "instanceGroups": [
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 1,
+      "group": "master_1",
+      "type": "GATEWAY",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [],
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "9443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "8443"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 1,
+      "group": "master_2",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [],
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 1,
+      "group": "master_3",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [],
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.xlarge",
+        "volumeType": "standard",
+        "volumeCount": 6,
+        "volumeSize": 200,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 10,
+      "group": "worker",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [],
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 1,
+      "group": "client",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [],
+      "securityGroup": {
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "protocol": "tcp",
+            "ports": "22"
+          }
+        ]
+      }
+    }
+  ],
+  "network": {
+    "parameters": {
+      "subnetId": "subnet-8778aba9",
+      "vpcId": "vpc-1ca7b567"
+    }
+  },
+  "stackAuthentication": {
+    "publicKeyId": "myoung-cloudbreak"
+  }
+}
