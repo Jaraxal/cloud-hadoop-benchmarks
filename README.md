@@ -118,26 +118,31 @@ sudo -u hdfs hadoop fs -chown cloudbreak /benchmarks
 
 TestDFSIO has a `write` and a `read` component.  You should test both of these.
 
-**NOTE: Paths specified are specific to HDP 2.6.4.5.  If you use a different version of HDP, you should update the paths accordingly.**
-
 #### Test 50GB
 
 To test `write` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 50 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-write -nrFiles 50 -fileSize 1000
+
 ```
 
 To test `read` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 50 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-read -nrFiles 50 -fileSize 1000
+
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
 hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
+
 ```
 
 #### Test 100GB
@@ -145,19 +150,26 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobc
 To test `write` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 100 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-write -nrFiles 100 -fileSize 1000
+
 ```
 
 To test `read` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 100 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-read -nrFiles 100 -fileSize 1000
+
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
 hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
+
 ```
 
 #### Test 500GB
@@ -165,19 +177,26 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobc
 To test `write` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -write -nrFiles 500 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-write -nrFiles 500 -fileSize 1000
+
 ```
 
 To test `read` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -D mapred.output.compress=false -read -nrFiles 500 -fileSize 1000
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-read -nrFiles 500 -fileSize 1000
+
 ```
 
 After recording the output from these test, don't forget to remove the test files:
 
 ```
 hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
+
 ```
 
 ### TeraGen & TeraGen
