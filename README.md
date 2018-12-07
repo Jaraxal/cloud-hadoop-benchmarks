@@ -18,9 +18,9 @@ There are a number of common benchmarking tools avaialble for Hadoop.  I will us
 
 I recommend using Cloudbreak to deploy clusters using the provided blueprints and cluster definitions to achieve similar results to my testing.  However it's not required.
 
-- Cloudbreak 2.4.1
-- Ambari 2.6.1.3
-- HDP 2.6.4.5-2
+- Cloudbreak 2.8.0 TP
+- Ambari 2.6.2.2
+- HDP 2.6.5.0
 
 You can create a local instance of Cloudbreak using Vagrant and Virtualbox.  I have a tutorial that covers how to do that: [Using Vagrant and Virtualbox to create a local instance of Cloudbreak 2.4.1](https://community.hortonworks.com/articles/194076/using-vagrant-and-virtualbox-to-create-a-local-ins.html).
 
@@ -28,7 +28,7 @@ If you follow my tutorial above, you can place all of the json files in this rep
 
 ### Cloudbreak CLI
 
-You should install the Cloudbreak CLI onto your Cloudbreak deployer node.  This will make automating the benchmarking much easier rather than using the UI Wizards.  The documentation walks you through that: [Installing Cloudbreak CLI](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.2/content/cli-install/index.html).  Before using the CLI, you should regiser your Cloudbreak username and password with the CLI using the following command:
+You should install the Cloudbreak CLI onto your Cloudbreak deployer node.  This will make automating the benchmarking much easier rather than using the UI Wizards.  The documentation walks you through that: [Installing Cloudbreak CLI](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.2/content/cli-install/index.html).  Before using the CLI, you should regiser your Cloudbreak hostname, username and password with the CLI using the following command:
 
 `cb configure --server <cloudbreak hostname> --username <cloudbreak username> --password <cloudbreak password>`
 
@@ -189,7 +189,12 @@ The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and 
 To test `TeraGen` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 500000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+-Dmapred.map.output.compress=true \
+500000000 \
+/user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 50GB
@@ -197,7 +202,12 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 To test `TeraSort` for 50GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+-Dmapred.map.output.compress=true \
+/user/cloudbreak/terasort-input \
+/user/cloudbreak/terasort-output
 ```
 
 #### Test TeraGen 100GB
@@ -205,7 +215,12 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 To test `TeraGen` for 100GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 1000000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+-Dmapred.map.output.compress=true \
+1000000000 \
+/user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 100GB
@@ -213,7 +228,12 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 To test `TeraSort` for 100B:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+-Dmapred.map.output.compress=true \
+/user/cloudbreak/terasort-input \
+/user/cloudbreak/terasort-output
 ```
 
 #### Test TeraGen 500GB
@@ -221,7 +241,12 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 To test `TeraGen` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen 5000000000 /user/cloudbreak/terasort-input
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+-Dmapred.map.output.compress=true \
+5000000000 \
+/user/cloudbreak/terasort-input
 ```
 
 #### Test TeraSort 500GB
@@ -229,12 +254,16 @@ time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-exampl
 To test `TeraSort` for 500GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort /user/cloudbreak/terasort-input /user/cloudbreak/terasort-output
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
+-Dmapred.map.tasks=159 \
+-Dmapred.reduce.tasks=159 \
+/user/cloudbreak/terasort-input \
+/user/cloudbreak/terasort-output
 ```
 
 #### Cleanup
 
-After recording the output from these tests, don't forget to remove the test files:
+After recording the output from these tests, don't forget to remove the test files.  If you are running multiple tests for different data sizes, you will need to cleanup the test data between each run.
 
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
@@ -255,6 +284,7 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 ./tpcds-build.sh
 ./tpcds-setup.sh 50
 ./runSuite.pl tpcds 50
+
 ```
 
 #### Test 100GB
@@ -263,6 +293,7 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 ./tpcds-build.sh
 ./tpcds-setup.sh 100
 ./runSuite.pl tpcds 100
+
 ```
 
 #### Test 500GB
@@ -271,11 +302,12 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 ./tpcds-build.sh
 ./tpcds-setup.sh 500
 ./runSuite.pl tpcds 500
+
 ```
 
 #### Cleanup
 
-After recording the output from these tests, don't forget to remove the test files:
+After recording the output from these tests, don't forget to remove the test files.  If you are running multiple tests for different data sizes, you will need to cleanup the test data between each run.
 
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/all_*
