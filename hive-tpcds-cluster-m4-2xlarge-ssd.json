@@ -1,0 +1,161 @@
+{
+  "tags": {
+    "userDefinedTags": {
+      "Business Unit": "Federal Sales",
+      "Product": "HDP26",
+      "Owner": "Michael Young",
+      "End Date": "12/31/2018",
+      "Hours of Operations": "24x7 or notify before shutdown",
+      "Business Justification": "Running benchmarks for cloud-sme/dws and the testing can run longer than 24 hours."
+    }
+  },
+  "placement": {
+    "availabilityZone": "us-east-1a",
+    "region": "us-east-1"
+  },
+  "flexId": null,
+  "general": {
+    "name": "myoung-tpcds-1",
+    "credentialName": "hwx-aws-myoung"
+  },
+  "cluster": {
+    "ambari": {
+      "userName": "admin",
+      "password": "BadPass#1",
+      "blueprintName": "hive-tpcds",
+      "ambariStackDetails": {
+        "stack": "HDP",
+        "version": "2.6",
+        "verify": false,
+        "enableGplRepo": false
+      },
+      "gateway": {
+        "enableGateway": false,
+        "gatewayType": "INDIVIDUAL"
+      },
+      "validateBlueprint": false,
+      "ambariSecurityMasterKey": ""
+    },
+    "fileSystem": null
+  },
+  "imageSettings": {
+    "imageId": "433025f0-16bb-4b83-5ef7-fb795a9fc8ab",
+    "imageCatalog": "cloudbreak-default"
+  },
+  "instanceGroups": [
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {
+          "encrypted": false
+        },
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100
+      },
+      "nodeCount": 1,
+      "group": "master_1",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityGroupId": "sg-daa74c91"
+      },
+      "recipeNames": []
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {
+          "encrypted": false
+        },
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100
+      },
+      "nodeCount": 1,
+      "group": "master_2",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityGroupId": "sg-daa74c91"
+      },
+      "recipeNames": []
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {
+          "encrypted": false
+        },
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100
+      },
+      "nodeCount": 1,
+      "group": "master_3",
+      "type": "GATEWAY",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityGroupId": "sg-daa74c91"
+      },
+      "recipeNames": []
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {
+          "encrypted": false
+        },
+        "instanceType": "m4.2xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 6,
+        "volumeSize": 200
+      },
+      "nodeCount": 10,
+      "group": "worker",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityGroupId": "sg-daa74c91"
+      },
+      "recipeNames": []
+    },
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {
+          "encrypted": false
+        },
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100
+      },
+      "nodeCount": 1,
+      "group": "client",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "securityGroup": {
+        "securityGroupId": "sg-daa74c91"
+      },
+      "recipeNames": []
+    }
+  ],
+  "network": {
+    "parameters": {
+      "publicNetId": null,
+      "routerId": null,
+      "internetGatewayId": null,
+      "subnetId": "subnet-a4bc6ec3",
+      "vpcId": "vpc-1ca7b567"
+    },
+    "subnetCIDR": null
+  },
+  "stackAuthentication": {
+    "publicKeyId": "myoung-cloudbreak",
+    "publicKey": null
+  }
+}
