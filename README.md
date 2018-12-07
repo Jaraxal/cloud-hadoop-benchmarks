@@ -112,7 +112,70 @@ sudo -u hdfs hadoop fs -mkdir /user/cloudbreak
 sudo -u hdfs hadoop fs -chown cloudbreak /user/cloudbreak
 sudo -u hdfs hadoop fs -mkdir /benchmarks
 sudo -u hdfs hadoop fs -chown cloudbreak /benchmarks
+
 ```
+
+If you are using Cloudbreak to create yoru clusters for these benchmarks, consider using a Cloudbreak recipe to automate the steps above.  The Cloudbreak recipe looks like this:
+
+```
+#!/bin/bash
+
+yum install -y git
+
+cd /home/cloudbreak
+
+git clone https://github.com/Jaraxal/cloud-hadoop-benchmarks.git
+
+cd /home/cloudbreak/cloud-hadoop-benchmarks
+
+sudo -u hdfs hadoop fs -mkdir /user/cloudbreak
+sudo -u hdfs hadoop fs -chown cloudbreak /user/cloudbreak
+sudo -u hdfs hadoop fs -mkdir /benchmarks
+sudo -u hdfs hadoop fs -chown cloudbreak /benchmarks
+
+chown -R cloudbreak:cloudbreak /home/cloudbreak
+
+```
+
+Once you have created the recipe, you should have the recipe run on the `client` node.  You should update the cluster template to do this.  Here is an excerpt of a template with the `recipeNames` section updated:
+
+```
+...
+    {
+      "parameters": {},
+      "template": {
+        "parameters": {},
+        "instanceType": "m4.4xlarge",
+        "volumeType": "gp2",
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "awsParameters": {
+          "encryption": {
+            "type": "NONE"
+          }
+        }
+      },
+      "nodeCount": 1,
+      "group": "client",
+      "type": "CORE",
+      "recoveryMode": "MANUAL",
+      "recipeNames": [
+        "download-benchmarks"
+      ],
+      "securityGroup": {
+...
+```
+
+The section you need to change is:
+
+```
+      "recipeNames": [
+        "download-benchmarks"
+      ],
+```
+
+You may need to edit the name of the recipe based on what you named it when you created it in Cloudbreak.
 
 ### TestDFSIO
 
@@ -204,6 +267,8 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobc
 The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and TeraValidate.  I only peformed TeraGen and TeraSort testing due to time constraints.
 
 #### Test TeraGen 50GB
+
+***NOTE: The number of `mapred.map.tasks` and `mapred.reduce.tasks` should be 1 less than the total number CPUs across your worker and compute nodes.  For example, on clusters with 10 m4.xlarge worker nodes, that would be `39`.  On clusters with 10 m4.4xlarge worker nodes, that would be `159`.***
 
 To test `TeraGen` for 50GB:
 
