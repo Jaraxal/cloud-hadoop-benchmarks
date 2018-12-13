@@ -264,21 +264,22 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobc
 
 ### TeraGen & TeraGen
 
-The Terasort series of benchmarks is comprised of tests: TeraGen, TeraSort, and TeraValidate.  I only peformed TeraGen and TeraSort testing due to time constraints.
+The Terasort series of benchmarks is comprised of multiple tests: TeraGen, TeraSort, and TeraValidate.
+
+***NOTE: The number of `mapred.map.tasks` and `mapred.reduce.tasks` should be 1 less than the total number CPUs across your worker and compute nodes.  For example, on clusters with 10 m4.xlarge worker nodes, that would be `39`.  On clusters with 10 m4.4xlarge worker nodes, that would be `159`.***
 
 #### Test TeraGen 50GB
 
-***NOTE: The number of `mapred.map.tasks` and `mapred.reduce.tasks` should be 1 less than the total number CPUs across your worker and compute nodes.  For example, on clusters with 10 m4.xlarge worker nodes, that would be `39`.  On clusters with 10 m4.4xlarge worker nodes, that would be `159`.***
 
 To test `TeraGen` for 50GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
 -Dmapred.map.output.compress=true \
 500000000 \
-/user/cloudbreak/terasort-input
+/user/cloudbreak/terasort-input-50
 
 ```
 
@@ -288,11 +289,24 @@ To test `TeraSort` for 50GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
 -Dmapred.map.output.compress=true \
-/user/cloudbreak/terasort-input \
-/user/cloudbreak/terasort-output
+/user/cloudbreak/terasort-input-50 \
+/user/cloudbreak/terasort-output-50
+
+```
+
+#### Test TeraValidate 50GB
+
+To test `TeraValidate` for 50GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
+/user/cloudbreak/terasort-output-50 \
+/user/cloudbreak/terasort-report-50
 
 ```
 
@@ -302,11 +316,11 @@ To test `TeraGen` for 100GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
 -Dmapred.map.output.compress=true \
 1000000000 \
-/user/cloudbreak/terasort-input
+/user/cloudbreak/terasort-input-100
 
 ```
 
@@ -316,11 +330,24 @@ To test `TeraSort` for 100B:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
 -Dmapred.map.output.compress=true \
-/user/cloudbreak/terasort-input \
-/user/cloudbreak/terasort-output
+/user/cloudbreak/terasort-input-100 \
+/user/cloudbreak/terasort-output-100
+
+```
+
+#### Test TeraValidate 100GB
+
+To test `TeraValidate` for 100GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
+/user/cloudbreak/terasort-output-100 \
+/user/cloudbreak/terasort-report-100
 
 ```
 
@@ -330,11 +357,12 @@ To test `TeraGen` for 500GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
 -Dmapred.map.output.compress=true \
 5000000000 \
-/user/cloudbreak/terasort-input
+/user/cloudbreak/terasort-input-500
+
 ```
 
 #### Test TeraSort 500GB
@@ -343,20 +371,34 @@ To test `TeraSort` for 500GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=159 \
--Dmapred.reduce.tasks=159 \
-/user/cloudbreak/terasort-input \
-/user/cloudbreak/terasort-output
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
+/user/cloudbreak/terasort-input-500 \
+/user/cloudbreak/terasort-output-500
+
+```
+
+#### Test TeraValidate 500GB
+
+To test `TeraValidate` for 500GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
+-Dmapred.map.tasks=39 \
+-Dmapred.reduce.tasks=39 \
+/user/cloudbreak/terasort-output-500 \
+/user/cloudbreak/terasort-report-500
 
 ```
 
 #### Cleanup
 
-After recording the output from these tests, don't forget to remove the test files.  If you are running multiple tests for different data sizes, you will need to cleanup the test data between each run.
+If you are running multiple tests for different data sizes, you will need to cleanup the test data between each run.  After recording the output from these tests, don't forget to remove the test files if you plan additional benchmark runs or are on a long running cluster where you don't want to waste the space.
 
 ```
-sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input
-sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
+sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-input-*
+sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output-*
+sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-report-*
 
 ```
 
@@ -364,7 +406,7 @@ sudo -u hdfs hadoop fs -rm -r -skipTrash /user/cloudbreak/terasort-output
 
 The TPC Benchmark DS (TPC-DS) is a decision support benchmark that models several generally applicable aspects of a decision support system, including queries and data maintenance.  You can read more about it here [TPC-DS](http://www.tpc.org/tpcds/)
 
-I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`, `q29`, `q59`, `q74`, `q75`, `q78`, `q93`, `q97`.  These are generally longer running queries.  The tpc-ds benchmark suite provided here was forked from [Hortonworks hive-testbench](https://github.com/hortonworks/hive-testbench).
+I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`, `q29`, `q59`, `q74`, `q75`, `q78`, `q93`, `q97`.  These are generally longer running queries.  The TPC-DS benchmark suite provided here was forked from [Hortonworks hive-testbench](https://github.com/hortonworks/hive-testbench).
 
 The `runSuite.pl` script runs each query 5 times.  You can modify the script to change the number of runs.
 
@@ -397,7 +439,7 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 
 #### Cleanup
 
-After recording the output from these tests, don't forget to remove the test files.  If you are running multiple tests for different data sizes, you will need to cleanup the test data between each run.
+Depending on the amount of storage you provided your cluster, you may need to cleanup the test data between runs of different data sizes if you are low on space.  If you are using a long running cluster where you don't want to waste the space, then you may need to cleanup the test data.
 
 ```
 sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/all_*
