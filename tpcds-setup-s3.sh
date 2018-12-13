@@ -6,7 +6,7 @@
 # S3.
 
 function usage {
-	echo "Usage: tpcds-setup.sh scale_factor [temp_directory]"
+	echo "Usage: tpcds-setup.sh scale_factor s3_warehouse_location"
 	exit 1
 }
 
@@ -57,7 +57,7 @@ fi
 
 # Create the text/flat tables as external tables. These will be later be converted to ORCFile.
 echo "Loading text data into external tables."
-runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/alltables-s3.sql -d DB=tpcds_bin_partitioned_${SCALE} -d LOCATION=${DIR}"
+runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/alltables-s3.sql -d DB=tpcds_bin_partitioned_orc_${SCALE} -d LOCATION=${DIR}"
 
 
 echo "Data loaded into database ${DATABASE}."
