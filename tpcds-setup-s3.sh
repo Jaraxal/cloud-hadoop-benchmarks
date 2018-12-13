@@ -59,5 +59,6 @@ fi
 echo "Loading text data into external tables."
 runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/alltables-s3.sql -d DB=tpcds_bin_partitioned_orc_${SCALE} -d LOCATION=${DIR}"
 
-
 echo "Data loaded into database ${DB}."
+
+#runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/analyze_everything.sql"
