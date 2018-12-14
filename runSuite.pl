@@ -57,13 +57,13 @@ for my $query ( @queries ) {
 		# Query responses come back in two different formats.
 		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
 			#push @runs, $1;
-			print "$query , success ,$1 , $2\n";
+			print "$query, success, $1, $2\n";
 		} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
 			#push @runs, $1;
-			print "$query , success, $1\n"; 
+			print "$query, success, $1\n"; 
 		} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
 			#push @runs, $2;
-			print "$query ,success ,$2 , $1\n"; 
+			print "$query, success, $2, $1\n"; 
 		} elsif ( $line =~ /FAILED: / ) {
 			print "$query,failed\n"; 
 			#push @output, "$query,failed\n"; 
