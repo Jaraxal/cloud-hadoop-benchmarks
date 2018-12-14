@@ -54,7 +54,6 @@ for my $query ( @queries ) {
 	die "${SCRIPT_NAME}:: ERROR:  hive command unexpectedly exited \$? = '$?', \$! = '$!'" if $?;
 
 	foreach my $line ( @hiveoutput ) {
-		print $line;
 		# Query responses come back in two different formats.
 		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
 			#push @runs, $1;
