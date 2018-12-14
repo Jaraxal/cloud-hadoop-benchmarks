@@ -59,7 +59,7 @@ for my $query ( @queries ) {
 		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
 			#push @runs, $1;
 			print "$query , success ,$1 , $2\n";
-		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
+		} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
 			#push @runs, $1;
 			print "$query , success, $1\n"; 
 		} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
