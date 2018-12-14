@@ -2,8 +2,7 @@
 # This script is a modification of the tpcds-setup.sh script.  The idea is that
 # you have previously run the tpcds-setup.sh to generate the data files on HDFS
 # and have subsequently copied those files to S3.  This script will create
-# external tables which point to the ORC file locations you have copied out to
-# S3.
+# external tables which point to the ORC file locations you have copied to S3.
 
 function usage {
 	echo "Usage: tpcds-setup.sh scale_factor s3_warehouse_location"
@@ -31,13 +30,7 @@ fi
 # Get the parameters.
 SCALE=$1
 DIR=$2
-if [ "X$BUCKET_DATA" != "X" ]; then
-	BUCKETS=13
-	RETURN_BUCKETS=13
-else
-	BUCKETS=1
-	RETURN_BUCKETS=1
-fi
+
 if [ "X$DEBUG_SCRIPT" != "X" ]; then
 	set -x
 fi
@@ -46,10 +39,12 @@ fi
 if [ X"$SCALE" = "X" ]; then
 	usage
 fi
+
 if [ X"$DIR" = "X" ]; then
     echo "You must specify the S3 bucket location."
 	exit 1
 fi
+
 if [ $SCALE -eq 1 ]; then
 	echo "Scale factor must be greater than 1"
 	exit 1
@@ -58,7 +53,8 @@ fi
 # Create the text/flat tables as external tables. These will be later be converted to ORCFile.
 echo "Loading text data into external tables."
 runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/alltables-s3.sql -d DB=tpcds_bin_partitioned_orc_${SCALE} -d LOCATION=${DIR}"
-
 echo "Data loaded into database ${DB}."
 
-#runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/analyze_everything.sql"
+echo "Analyzing tables."
+#runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/analyze_everything.sql -d DB=tpcds_bin_partitioned_orc_${SCALE}"
+echo "Tables analyzed."
