@@ -56,5 +56,5 @@ runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/alltables-s3.sql -d
 echo "Data loaded into database ${DB}."
 
 echo "Analyzing tables."
-#runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/analyze_everything.sql -d DB=tpcds_bin_partitioned_orc_${SCALE}"
+runcommand "hive -i settings/load-flat.sql -f ddl-tpcds/text/analyze_everything.sql -d DB=tpcds_bin_partitioned_orc_${SCALE}"
 echo "Tables analyzed."
