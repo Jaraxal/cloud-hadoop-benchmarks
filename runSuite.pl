@@ -65,9 +65,8 @@ for my $query ( @queries ) {
 			#push @runs, $2;
 			print "$query, success, $2, $1\n"; 
 		} elsif ( $line =~ /FAILED: / ) {
-			print "$query,failed\n"; 
+			print "$query, failed\n"; 
 			#push @output, "$query,failed\n"; 
-			$counter = $iterations;
 		} # end if
 	} # end foreach
 	$counter += 1;
