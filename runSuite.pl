@@ -32,12 +32,9 @@ my $db = {
 };
 
 my $iterations = 5;
-#my @output = [];
 
-#print "filename,status,raw time,time,rows\n";
 for my $query ( @queries ) {
 	my $counter = 1;
-	#my @runs = [];
 
 	print "Running " . $query . " ...\n";
 
@@ -54,49 +51,20 @@ for my $query ( @queries ) {
 	die "${SCRIPT_NAME}:: ERROR:  hive command unexpectedly exited \$? = '$?', \$! = '$!'" if $?;
 
 	foreach my $line ( @hiveoutput ) {
-		# Query responses come back in two different formats.
+		# Query responses come back in different formats depending on the Hive
+		# client used.
 		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
-			#push @runs, $1;
 			print "$query, success, $1, $2\n";
 		} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
-			#push @runs, $1;
 			print "$query, success, $1\n"; 
 		} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
-			#push @runs, $2;
 			print "$query, success, $2, $1\n"; 
 		} elsif ( $line =~ /FAILED: / ) {
 			print "$query, failed\n"; 
-			#push @output, "$query,failed\n"; 
 		} # end if
 	} # end foreach
 	$counter += 1;
 } # end of while
-
-#    my $totalRun = 0;
-#    $totalRun = $totalRun += 1 for @runs;
-#   
-#    print  "Total Runs: " . $totalRun;
-#
-#    my $sumRun = 0; 
-#    if ( $totalRun >= 3 ) {
-#
-#      for my $run (@runs) {
-#        $sumRun += $run;
-#        print $sumRun;
-#      }
-#
-#      print "Sum of Runs: " . $sumRun;
-#      my $averageRun = $sumRun/$totalRun;
-#
-#      print "$query,success,$averageRun\n"; 
-#      push @output, "$query,success,$averageRun\n"; 
-#    } # end if
-} # end for
-
-#foreach my $item (@output) {
-#    print $item . "\n";
-#}
-    
 
 sub dieWithUsage(;$) {
 	my $err = shift || '';
