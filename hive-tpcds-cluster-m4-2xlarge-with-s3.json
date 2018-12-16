@@ -177,7 +177,7 @@
       "parameters": {},
       "template": {
         "parameters": {},
-        "instanceType": "m4.xlarge",
+        "instanceType": "m4.2xlarge",
         "volumeType": "standard",
         "volumeCount": 6,
         "volumeSize": 200,
