@@ -41,30 +41,31 @@ for my $query ( @queries ) {
 	while ($counter <= $iterations) {
 		print "  iteration " . $counter . "\t";
 
-	my $logname = "$query.log";
-	
-	# Change hostname for HiveServer2
-	#my $cmd="beeline -u jdbc:hive2://ip-10-0-0-227.jaraxal.com:10000/tpcds_bin_partitioned_orc_1000 -n cloudbreak -p cloudbreak -f $query 2>&1 | tee $query.$counter.log";
-	my $cmd="echo 'use $db->{${suite}}; source $query;' | hive 2>&1  | tee $query.$counter.log";
-	
-	my @hiveoutput=`$cmd`;
-	die "${SCRIPT_NAME}:: ERROR:  hive command unexpectedly exited \$? = '$?', \$! = '$!'" if $?;
+		my $logname = "$query.log";
+		
+		# Change hostname for HiveServer2
+		#my $cmd="beeline -u jdbc:hive2://ip-10-0-0-227.jaraxal.com:10000/tpcds_bin_partitioned_orc_1000 -n cloudbreak -p cloudbreak -f $query 2>&1 | tee $query.$counter.log";
+		my $cmd="echo 'use $db->{${suite}}; source $query;' | hive 2>&1  | tee $query.$counter.log";
+		
+		my @hiveoutput=`$cmd`;
+		die "${SCRIPT_NAME}:: ERROR:  hive command unexpectedly exited \$? = '$?', \$! = '$!'" if $?;
 
-	foreach my $line ( @hiveoutput ) {
-		# Query responses come back in different formats depending on the Hive
-		# client used.
-		if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
-			print "$query, success, $1, $2\n";
-		} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
-			print "$query, success, $1\n"; 
-		} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
-			print "$query, success, $2, $1\n"; 
-		} elsif ( $line =~ /FAILED: / ) {
-			print "$query, failed\n"; 
-		} # end if
-	} # end foreach
+		foreach my $line ( @hiveoutput ) {
+			# Query responses come back in different formats depending on the Hive
+			# client used.
+			if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
+				print "$query, success, $1, $2\n";
+			} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
+				print "$query, success, $1\n"; 
+			} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
+				print "$query, success, $2, $1\n"; 
+			} elsif ( $line =~ /FAILED: / ) {
+				print "$query, failed\n"; 
+			} # end if
+		} # end foreach
 	$counter += 1;
-} # end of while
+	} #end of while
+} # end of for
 
 sub dieWithUsage(;$) {
 	my $err = shift || '';
