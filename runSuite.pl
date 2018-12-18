@@ -55,8 +55,6 @@ for my $query ( @queries ) {
 			# client used.
 			if ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds,\s+Fetched:\s+(\d+)\s+row/ ) {
 				print "$query, success, $1, $2\n";
-			} elsif ( $line =~ /Time taken:\s+([\d\.]+)\s+seconds/ ) {
-				print "$query, success, $1\n"; 
 			} elsif ( $line =~ /^(\d+\,?\d*) row[s]?\s+selected\s+\(([\d\.]+)\s+seconds\)/ ) {
 				print "$query, success, $2, $1\n"; 
 			} elsif ( $line =~ /FAILED: / ) {
