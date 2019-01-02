@@ -6,7 +6,7 @@
   },
   "placement": {
     "region": "us-east-1",
-    "availabilityZone": "us-east-1a"
+    "availabilityZone": "us-east-1b"
   },
   "tags": {
     "userDefinedTags": {
