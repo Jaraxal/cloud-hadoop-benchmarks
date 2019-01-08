@@ -181,33 +181,6 @@ You may need to edit the name of the recipe based on what you named it when you 
 
 TestDFSIO has a `write` and a `read` component.  You should test both of these.
 
-#### Test 50GB
-
-To test `write` for 50GB:
-
-```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
--D mapred.output.compress=false \
--write -nrFiles 50 -fileSize 1000
-
-```
-
-To test `read` for 50GB:
-
-```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
--D mapred.output.compress=false \
--read -nrFiles 50 -fileSize 1000
-
-```
-
-After recording the output from these test, don't forget to remove the test files:
-
-```
-hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
-
-```
-
 #### Test 100GB
 
 To test `write` for 100GB:
@@ -262,132 +235,145 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobc
 
 ```
 
-### TeraGen & TeraGen
+#### Test 1000GB
 
-The Terasort series of benchmarks is comprised of multiple tests: TeraGen, TeraSort, and TeraValidate.
-
-***NOTE: The number of `mapred.map.tasks` and `mapred.reduce.tasks` should be 1 less than the total number CPUs across your worker and compute nodes.  For example, on clusters with 10 m4.xlarge worker nodes, that would be `39`.  On clusters with 10 m4.4xlarge worker nodes, that would be `159`.***
-
-#### Test TeraGen 50GB
-
-
-To test `TeraGen` for 50GB:
+To test `write` for 1000GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
--Dmapred.map.output.compress=true \
-500000000 \
-/user/cloudbreak/terasort-input-50
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-write -nrFiles 1000 -fileSize 1000
 
 ```
 
-#### Test TeraSort 50GB
-
-To test `TeraSort` for 50GB:
+To test `read` for 1000GB:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
--Dmapred.map.output.compress=true \
-/user/cloudbreak/terasort-input-50 \
-/user/cloudbreak/terasort-output-50
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO \
+-D mapred.output.compress=false \
+-read -nrFiles 1000 -fileSize 1000
 
 ```
 
-#### Test TeraValidate 50GB
-
-To test `TeraValidate` for 50GB:
+After recording the output from these test, don't forget to remove the test files:
 
 ```
-time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
-/user/cloudbreak/terasort-output-50 \
-/user/cloudbreak/terasort-report-50
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient.jar TestDFSIO -clean
 
 ```
 
-#### Test TeraGen 100GB
+### TeraGen/TeraSort/TeraValidate
+
+The TeraSort series of benchmarks is comprised of multiple tests: TeraGen, TeraSort, and TeraValidate.
+
+***NOTE: The number of `mapred.map.tasks` and `mapred.reduce.tasks` should be 1 less than the total number CPUs across your worker and compute nodes.  For example, on clusters with 10 m4.xlarge worker nodes, that would be `39`.  On clusters with 10 m4.2xlarge worker nodes, that would be `79`.  On clusters with 10 m4.4xlarge worker nodes, that would be `159`.***
+
+#### Test TeraGen/TeraSort/TeraValidate 100GB
 
 To test `TeraGen` for 100GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
 -Dmapred.map.output.compress=true \
 1000000000 \
 /user/cloudbreak/terasort-input-100
 
 ```
 
-#### Test TeraSort 100GB
-
 To test `TeraSort` for 100B:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
 -Dmapred.map.output.compress=true \
 /user/cloudbreak/terasort-input-100 \
 /user/cloudbreak/terasort-output-100
 
 ```
 
-#### Test TeraValidate 100GB
-
 To test `TeraValidate` for 100GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
 /user/cloudbreak/terasort-output-100 \
 /user/cloudbreak/terasort-report-100
 
 ```
 
-#### Test TeraGen 500GB
+#### Test TeraGen/TeraSort/TeraValidate 500GB
 
 To test `TeraGen` for 500GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
 -Dmapred.map.output.compress=true \
 5000000000 \
 /user/cloudbreak/terasort-input-500
 
 ```
 
-#### Test TeraSort 500GB
-
 To test `TeraSort` for 500GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
 /user/cloudbreak/terasort-input-500 \
 /user/cloudbreak/terasort-output-500
 
 ```
 
-#### Test TeraValidate 500GB
-
 To test `TeraValidate` for 500GB:
 
 ```
 time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
--Dmapred.map.tasks=39 \
--Dmapred.reduce.tasks=39 \
-/user/cloudbreak/terasort-output-500 \
-/user/cloudbreak/terasort-report-500
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
+/user/cloudbreak/terasort-output-1000 \
+/user/cloudbreak/terasort-report-1000
+
+```
+
+#### Test TeraGen/TeraSort/TeraValidate 1000GB
+
+To test `TeraGen` for 1000GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
+-Dmapred.map.output.compress=true \
+10000000000 \
+/user/cloudbreak/terasort-input-1000
+
+```
+
+To test `TeraSort` for 1000GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
+/user/cloudbreak/terasort-input-1000 \
+/user/cloudbreak/terasort-output-1000
+
+```
+
+To test `TeraValidate` for 1000GB:
+
+```
+time hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate \
+-Dmapred.map.tasks=79 \
+-Dmapred.reduce.tasks=79 \
+/user/cloudbreak/terasort-output-1000 \
+/user/cloudbreak/terasort-report-1000
 
 ```
 
@@ -410,15 +396,6 @@ I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`
 
 The `runSuite.pl` script runs each query 5 times.  You can modify the script to change the number of runs.
 
-#### Test 50GB
-
-```
-./tpcds-build.sh
-./tpcds-setup.sh 50
-./runSuite.pl tpcds 50
-
-```
-
 #### Test 100GB
 
 ```
@@ -437,6 +414,15 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 
 ```
 
+#### Test 1000GB
+
+```
+./tpcds-build.sh
+./tpcds-setup.sh 1000
+./runSuite.pl tpcds 1000
+
+```
+
 #### Cleanup
 
 Depending on the amount of storage you provided your cluster, you may need to cleanup the test data between runs of different data sizes if you are low on space.  If you are using a long running cluster where you don't want to waste the space, then you may need to cleanup the test data.
@@ -447,6 +433,44 @@ sudo -u hdfs hadoop fs -rm -r -skipTrash /tmp/tpcds-generate
 
 ```
 
+### Benchmarking against S3
+
+You can run these tests on an HDP cluster using S3 as the primary storage.  Cloudbreak makes it easy to configure a cluster which already has S3 connectivity enabled.  You can read more about that here: [Cloudbreak Documentation](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.8.0/cloud-data-access/content/cb_configuring-access-to-amazon-s3.html).
+
+I've included a number of Cloudbreak templates which automatically configure S3 when the cluster is built.  One such example is `hive-tpcds-cluster-m4-4xlarge-with-s3.json`.
+
+The relevant section of the template is the following:
+
+```
+ "cloudStorage": {
+        "locations": [
+          {
+            "value": "s3a://myoung-hwx/tpcds01/apps/ranger/audit/testme",
+            "propertyFile": "ranger-hive-audit",
+            "propertyName": "xasecure.audit.destination.hdfs.dir"
+          },
+          {
+            "value": "s3a://myoung-hwx/tpcds01/apps/hive/warehouse",
+            "propertyFile": "hive-site",
+            "propertyName": "hive.metastore.warehouse.dir"
+          }
+        ],
+        "s3": {
+          "instanceProfile": "arn:aws:iam::081339556850:instance-profile/myoung-hwx-s3"
+        }
+      },
+```
+
+You should update your template to reference your AWS instance profile and S3 bucket location as appropriate.
+
+If you intend to compare/contrast local HDFS and S3, make sure to drop the database tables in Hive between the local and S3 based runs.
+
+```
+drop database tpcds_bin_partitioned_orc_100 cascade;
+drop database tpcds_bin_partitioned_orc_500 cascade;
+drop database tpcds_bin_partitioned_orc_1000 cascade;
+```
+
 ### Cluster Termination
 
-Once you have completed a round of tests on a given configuration, terminate the clsuter via Cloudbreak.  Repeat the process for different instance types to compare relative performance.
+Once testing is complete, don't forget to terminate any unneeded clusters.  If you performed any testing using S3, don't forget to purge any unneeded data in your S3 buckets.
