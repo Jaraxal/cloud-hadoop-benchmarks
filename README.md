@@ -1,6 +1,6 @@
 # cloud-hadoop-benchmarks
 
-Use common Hadoop benchmarks to evaluate the performance of various cloud provider platforms.
+Use common Hadoop benchmarks to evaluate the performance of various cloud provider platforms using Cloudbreak.
 
 ## Overview
 
