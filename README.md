@@ -10,7 +10,7 @@ Cloudbreak is also a great tool for automating the deployment of multiple cluste
 
 You can read more about Cloudbreak [here](https://hortonworks.com/open-source/cloudbreak/) and [here](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.2/content/index.html).
 
-There are a number of common benchmarking tools avaialble for Hadoop.  I will use TestDFISIO, TeraGen, TeraSort and TPC-DS.
+There are a number of common benchmarking tools avaialble for Hadoop.  I'm focusing on TestDFISIO, TeraGen/TeraSort/TeraValidate and TPC-DS.
 
 ## Prerequisites
 
