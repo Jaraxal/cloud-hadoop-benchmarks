@@ -66,6 +66,8 @@ You should modify the cluster defintion json files to meet your needs.  Common s
   - **subnetId** - This should correspond to an existing subnet you have created for your cloud provider
   - **vpcId** - This should correspond to an existing subnet you have created for your cloud provider
 
+***NOTE: You don't have to use an existing vpc and subnet.  You can have Cloudbreak create those for you.  You will need to update the Cloudbreak template accordingly.  If you walk through the Cloudbreak UI wizard, you can generate a template that creates new vpc and subnet to see what that looks like***
+
 ### Blueprints
 
 I recommend using the provided blueprints for benchmark purposes.  However, you may want to perform A-B testing with small changes to the cluster layout or component configurations.  I have provided 2 hive-focused blueprints.  To register the blueprints, you need to be on your Cloudbreak deployer node and run the following:
