@@ -396,10 +396,18 @@ I've chosen a subset of TPC-DS queries for my benchmarks.  I'm using `q4`, `q11`
 
 The `runSuite.pl` script runs each query 5 times.  You can modify the script to change the number of runs.
 
-#### Test 100GB
+#### Build TPC-DS
+
+Before running the TPC-DS benchmark, you need to build it.  You only need to run `./tpcds-build.sh` one time per cluster
 
 ```
 ./tpcds-build.sh
+
+```
+
+#### Test 100GB
+
+```
 ./tpcds-setup.sh 100
 ./runSuite.pl tpcds 100
 
@@ -408,7 +416,6 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 #### Test 500GB
 
 ```
-./tpcds-build.sh
 ./tpcds-setup.sh 500
 ./runSuite.pl tpcds 500
 
@@ -417,7 +424,6 @@ The `runSuite.pl` script runs each query 5 times.  You can modify the script to 
 #### Test 1000GB
 
 ```
-./tpcds-build.sh
 ./tpcds-setup.sh 1000
 ./runSuite.pl tpcds 1000
 
