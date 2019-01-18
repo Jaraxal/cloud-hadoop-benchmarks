@@ -278,40 +278,6 @@
       "cardinality": "1+"
     },
     {
-      "name": "compute",
-      "configurations": [],
-      "components": [
-        {
-          "name": "HIVE_CLIENT"
-        },
-        {
-          "name": "TEZ_CLIENT"
-        },
-        {
-          "name": "SPARK2_CLIENT"
-        },
-        {
-          "name": "HDFS_CLIENT"
-        },
-        {
-          "name": "MAPREDUCE2_CLIENT"
-        },
-        {
-          "name": "YARN_CLIENT"
-        },
-        {
-          "name": "ZOOKEEPER_CLIENT"
-        },
-        {
-          "name": "METRICS_MONITOR"
-        },
-        {
-          "name": "NODEMANAGER"
-        }
-      ],
-      "cardinality": "1+"
-    },
-    {
       "name": "client",
       "configurations": [],
       "components": [
